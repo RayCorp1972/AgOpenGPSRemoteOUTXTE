@@ -352,17 +352,17 @@
             // 
             // chName
             // 
-            this.chName.Text = "Field";
+            this.chName.Text = "Perceel";
             this.chName.Width = 680;
             // 
             // chDistance
             // 
-            this.chDistance.Text = "Distance";
+            this.chDistance.Text = "Afstand";
             this.chDistance.Width = 140;
             // 
             // chArea
             // 
-            this.chArea.Text = "Area";
+            this.chArea.Text = "Ha";
             this.chArea.Width = 140;
             // 
             // label3

@@ -358,6 +358,7 @@ namespace AgOpenGPS
             sounds = new CSound();
 
             Tree = new CTree(this);
+          Tree.ptList?.Clear();
 
             //brightness object class
             displayBrightness = new CWindowsSettingsBrightnessController(Properties.Settings.Default.setDisplay_isBrightnessOn);
@@ -373,7 +374,7 @@ namespace AgOpenGPS
 
             //boundaryToolStripBtn.Enabled = false;
             FieldMenuButtonEnableDisable(false);
-
+           Tree.ptList?.Clear();
             panelRight.Enabled = false;
 
             oglMain.Left = 75;
@@ -552,7 +553,7 @@ namespace AgOpenGPS
             headingChartToolStripMenuItem.Text = gStr.gsHeadingChart;
             xTEChartToolStripMenuItem.Text = gStr.gsXTEChart;
 
-            btnChangeMappingColor.Text = Application.ProductVersion.ToString(CultureInfo.InvariantCulture);
+            btnChangeMappingColor.Text = "5.7.3 RC";
             //btnChangeMappingColor.Text = btnChangeMappingColor.Text.Substring(2);
 
             hotkeys = new char[19];

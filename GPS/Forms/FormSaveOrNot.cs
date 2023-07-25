@@ -6,7 +6,7 @@ namespace AgOpenGPS
     public partial class FormSaveOrNot : Form
     {
         //class variables
-
+        private readonly FormGPS mf = null;
         public FormSaveOrNot(bool closing)
         {
             InitializeComponent();
@@ -25,6 +25,7 @@ namespace AgOpenGPS
             {
                 btnSaveAs.Visible = false;
                 label4.Visible = false;
+                
             }
         }
 
@@ -32,6 +33,7 @@ namespace AgOpenGPS
         {
             //back to FormGPS
             DialogResult = DialogResult.OK;
+           
             Close();
         }
 
@@ -45,6 +47,11 @@ namespace AgOpenGPS
         {
             DialogResult = DialogResult.Yes;
             Close();
+        }
+
+        private void panel1_Paint(object sender, PaintEventArgs e)
+        {
+
         }
     }
 }

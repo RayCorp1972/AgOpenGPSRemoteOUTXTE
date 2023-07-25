@@ -487,7 +487,7 @@ namespace AgOpenGPS
             else btnHeadlandOnOff.Image = Properties.Resources.HeadlandOff;
 
             btnChangeMappingColor.BackColor = sectionColorDay;
-            btnChangeMappingColor.Text = Application.ProductVersion.ToString(CultureInfo.InvariantCulture);
+            btnChangeMappingColor.Text = "5.7.3 RC" ;
 
             if (Properties.Settings.Default.setDisplay_isStartFullScreen)
             {
