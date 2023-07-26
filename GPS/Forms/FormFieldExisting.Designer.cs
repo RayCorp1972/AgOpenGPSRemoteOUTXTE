@@ -66,9 +66,9 @@
             this.label1.Location = new System.Drawing.Point(4, 527);
             this.label1.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(142, 23);
+            this.label1.Size = new System.Drawing.Size(218, 23);
             this.label1.TabIndex = 4;
-            this.label1.Text = "Edit Field Name";
+            this.label1.Text = "Perceel naam aanpassen";
             // 
             // tboxFieldName
             // 
@@ -232,7 +232,7 @@
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(53, 13);
             this.label5.TabIndex = 266;
-            this.label5.Text = "Headland";
+            this.label5.Text = "Kopakker";
             // 
             // label6
             // 
@@ -244,9 +244,9 @@
             this.label6.Location = new System.Drawing.Point(722, 644);
             this.label6.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(32, 13);
+            this.label6.Size = new System.Drawing.Size(35, 13);
             this.label6.TabIndex = 267;
-            this.label6.Text = "Lines";
+            this.label6.Text = "Lijnen";
             // 
             // label7
             // 
@@ -258,9 +258,9 @@
             this.label7.Location = new System.Drawing.Point(499, 644);
             this.label7.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(48, 13);
+            this.label7.Size = new System.Drawing.Size(52, 13);
             this.label7.TabIndex = 268;
-            this.label7.Text = "Mapping";
+            this.label7.Text = "Bewerkte";
             // 
             // label8
             // 
@@ -269,12 +269,12 @@
             this.label8.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
             this.label8.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
             this.label8.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-            this.label8.Location = new System.Drawing.Point(403, 644);
+            this.label8.Location = new System.Drawing.Point(393, 645);
             this.label8.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label8.Name = "label8";
-            this.label8.Size = new System.Drawing.Size(32, 13);
+            this.label8.Size = new System.Drawing.Size(54, 13);
             this.label8.TabIndex = 269;
-            this.label8.Text = "Flags";
+            this.label8.Text = "Markering";
             // 
             // btnAddDate
             // 

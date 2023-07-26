@@ -57,7 +57,7 @@
             this.lblDistanceTree.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.lblDistanceTree.Font = new System.Drawing.Font("Tahoma", 21.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblDistanceTree.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-            this.lblDistanceTree.Location = new System.Drawing.Point(98, 56);
+            this.lblDistanceTree.Location = new System.Drawing.Point(133, 56);
             this.lblDistanceTree.Name = "lblDistanceTree";
             this.lblDistanceTree.Size = new System.Drawing.Size(92, 35);
             this.lblDistanceTree.TabIndex = 305;

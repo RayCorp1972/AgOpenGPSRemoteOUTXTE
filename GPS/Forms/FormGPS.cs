@@ -37,6 +37,8 @@ namespace AgOpenGPS
         //How many boundaries allowed
         public const int MAXBOUNDARIES = 6;
 
+        public Color ButtonColor = new Color();
+     
         //How many headlands allowed
         public const int MAXHEADS = 6;
 
@@ -114,7 +116,7 @@ namespace AgOpenGPS
         public string unitsFtM, unitsInCm;
 
         public char[] hotkeys;
-        public double treeSpacingCounter = 0.0;
+        public double treeSpacingCounter = 0.00;
         public int treeTrigger = 0;
 
         //used by filePicker Form to return picked file and directory
@@ -170,6 +172,7 @@ namespace AgOpenGPS
         /// </summary>
         public CContour ct;
 
+
         /// <summary>
         /// ABCurve instance
         /// </summary>
@@ -212,6 +215,9 @@ namespace AgOpenGPS
 
         private void toolStripMenuItem1_Click(object sender, EventArgs e)
         {
+
+            label3.Visible = true;
+            label3.BackColor = ButtonColor;
             //check if window already exists
             Form fc = Application.OpenForms["FormTreePlant"];
 
@@ -230,6 +236,11 @@ namespace AgOpenGPS
         /// Heading, Roll, Pitch, GPS, Properties
         /// </summary>
         public CAHRS ahrs;
+
+        private void RemoteButton_Click(object sender, EventArgs e)
+        {
+
+        }
 
         /// <summary>
         /// Recorded Path
@@ -367,6 +378,9 @@ namespace AgOpenGPS
         //Initialize items before the form Loads or is visible
         private void FormGPS_Load(object sender, EventArgs e)
         {
+
+            
+            label3.Visible = false;
             this.MouseWheel += ZoomByMouseWheel;
 
             //start udp server is required

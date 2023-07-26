@@ -10,7 +10,7 @@ namespace AgOpenGPS
         private double lastDist;
         private bool wasRed, isRunning;
         private int trees;
-
+        
         public FormTreePlant(Form callingForm)
         {
             mf = callingForm as FormGPS;
@@ -52,13 +52,15 @@ namespace AgOpenGPS
             
             if (isRunning)
             {
-                lblDistanceTree.Text = ((UInt16)mf.treeSpacingCounter).ToString();
+                lblDistanceTree.Text = ((UInt16)mf.treeSpacingCounter * 0.01).ToString();
                 if (lastDist > mf.treeSpacingCounter)
                 {
                     //lblSpacing.Text = mf.vehicle.treeSpacing.ToString();
                     wasRed = !wasRed;                    
                     if (wasRed) btnZeroDistance.BackColor = Color.DarkSeaGreen;
+                    
                     else btnZeroDistance.BackColor = Color.LightGreen;
+                   
                 }
                 btnZeroDistance.Text = "Stop";
                 
@@ -71,20 +73,32 @@ namespace AgOpenGPS
             if(mf.Tree.isSound)
             {
                 button1.BackColor = Color.DarkGreen;
+                this.BackColor = Color.Black;
             }
             else
             {
                 button1.BackColor = Color.Orange;
+                
             }
             if (mf.treeTrigger == 1) pictureBox1.Image = Properties.Resources.SwitchOn;
+            if (mf.treeTrigger == 1) this.BackColor = Color.Red;
             else pictureBox1.Image = Properties.Resources.SwitchOff;
-
             lblStepDistance.Text = (mf.distanceCurrentStepFix * 100).ToString("N1");
             lblSpeed.Text = mf.pn.speed.ToString("N1");
             lblTrees.Text = mf.Tree.ptList.Count.ToString();
             lastDist = mf.treeSpacingCounter;
-        }
+            
+            this.lblTrees.TextChanged += new System.EventHandler(this.lblTrees_TextChanged);
 
+
+
+        }
+        
+
+        private void lblTrees_TextChanged(object sender, EventArgs e)
+        {
+           this.BackColor = Color.Red;
+        }
         private void btnZeroDistance_Click(object sender, EventArgs e)
         {
             if (isRunning)
@@ -96,7 +110,7 @@ namespace AgOpenGPS
                 lblDistanceTree.Text = ((UInt16)mf.treeSpacingCounter).ToString();
                 lblStepDistance.Text = (mf.distanceCurrentStepFix * 100).ToString("N1");
                 btnZeroDistance.BackColor = Color.OrangeRed;
-               
+                
                 mf.Tree.isPlanting = false;
                 // mf.vehicle.treeSpacing = 0;
             }
@@ -105,7 +119,7 @@ namespace AgOpenGPS
                 lastDist = 0;
                 trees = 0;
                 mf.treeSpacingCounter = 0;
-                //if (mf.manualBtnState == AgOpenGPS.FormGPS.btnStates.Off)
+               //if (mf.manualBtnState == AgOpenGPS.FormGPS.btnStates.Off)
                 //{
                 //    mf.btnManualOffOn.PerformClick();
                 //}
@@ -114,7 +128,9 @@ namespace AgOpenGPS
                 lblDistanceTree.Text = ((UInt16)mf.treeSpacingCounter).ToString();
                 lblStepDistance.Text = (mf.distanceCurrentStepFix * 100).ToString("N1");
                 btnZeroDistance.BackColor = Color.LightGreen;
+                
                 mf.Tree.isPlanting = true;
+
                 //mf.vehicle.treeSpacing = Properties.Settings.Default.setDistance_TreeSpacing;
             }
 
@@ -154,12 +170,7 @@ namespace AgOpenGPS
 
         private void FormTreePlant_Load(object sender, EventArgs e)
         {
-            //if (mf.manualBtnState != AgOpenGPS.FormGPS.btnStates.Off)
-            //{
-            //    mf.btnManualOffOn.PerformClick();
-            //}
-
-            //mf.vehicle.treeSpacing = Properties.Settings.Default.setDistance_TreeSpacing;
+           
 
             nudTreeSpacing.Value = (decimal)mf.vehicle.treeSpacing;
             lastDist = 0;
@@ -168,6 +179,7 @@ namespace AgOpenGPS
             isRunning = false;
             btnZeroDistance.Text = "Start";
             btnZeroDistance.BackColor = Color.OrangeRed;
+            
         }
     }
 }
