@@ -15,6 +15,7 @@ using System.Net.Sockets;
 using System.Reflection;
 using System.Resources;
 using System.Windows.Forms;
+using System.IO.Ports;
 
 namespace AgOpenGPS
 {
@@ -22,6 +23,8 @@ namespace AgOpenGPS
     //the main form object
     public partial class FormGPS : Form
     {
+        public string dataPWM = "0";
+        private readonly FormXTEGraph XT = null;
         //To bring forward AgIO if running
         [System.Runtime.InteropServices.DllImport("User32.dll")]
         private static extern bool SetForegroundWindow(IntPtr handle);
@@ -86,7 +89,7 @@ namespace AgOpenGPS
 
         //Time to do fix position update and draw routine
         public double frameTime = 0;
-
+        
         //create instance of a stopwatch for timing of frames and NMEA hz determination
         //private readonly Stopwatch swHz = new Stopwatch();
 
@@ -212,7 +215,7 @@ namespace AgOpenGPS
         /// Resource manager for gloabal strings
         /// </summary>
         public ResourceManager _rm;
-
+        
         private void toolStripMenuItem1_Click(object sender, EventArgs e)
         {
 
@@ -238,6 +241,11 @@ namespace AgOpenGPS
         public CAHRS ahrs;
 
         private void RemoteButton_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void label4_Click(object sender, EventArgs e)
         {
 
         }
@@ -290,9 +298,10 @@ namespace AgOpenGPS
         // Constructor, Initializes a new instance of the "FormGPS" class.
         public FormGPS()
         {
+
             //winform initialization
             InitializeComponent();
-
+            
             CheckSettingsNotNull();
 
             //time keeper
@@ -374,12 +383,12 @@ namespace AgOpenGPS
             //brightness object class
             displayBrightness = new CWindowsSettingsBrightnessController(Properties.Settings.Default.setDisplay_isBrightnessOn);
         }
-
+        
         //Initialize items before the form Loads or is visible
         private void FormGPS_Load(object sender, EventArgs e)
         {
-
             
+           label4.Text = ((int)(vehicle.modeActualXTE * 100)).ToString(CultureInfo.InvariantCulture);
             label3.Visible = false;
             this.MouseWheel += ZoomByMouseWheel;
 
@@ -482,7 +491,7 @@ namespace AgOpenGPS
 
             // load all the gui elements in gui.designer.cs
             LoadSettings();
-
+            
             if (Settings.Default.setMenu_isOGLZoomOn == 1)
                 topFieldViewToolStripMenuItem.Checked = true;
             else topFieldViewToolStripMenuItem.Checked = false;
@@ -791,7 +800,7 @@ namespace AgOpenGPS
                 oglZoom.Width = 300;
                 oglZoom.Height = 300;
             }
-
+            
             //SendSteerSettingsOutAutoSteerPort();
             isJobStarted = true;
             startCounter = 0;
@@ -1036,7 +1045,7 @@ namespace AgOpenGPS
             curve.ResetCurveLine();
             curve.curveArr?.Clear();
             curve.numCurveLineSelected = 0;
-
+            
             //clean up tram
             tram.displayMode = 0;
             tram.tramBndInnerArr?.Clear();
