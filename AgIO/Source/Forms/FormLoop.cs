@@ -466,6 +466,8 @@ namespace AgIO
 
             if (isLogNMEA)
             {
+
+                label11.Text = (logNMEASentence.ToString());
                 using (StreamWriter writer = new StreamWriter("zAgIO_log.txt", true))
                 {
                     writer.Write(logNMEASentence.ToString());
