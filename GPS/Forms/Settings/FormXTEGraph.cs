@@ -290,8 +290,7 @@ namespace AgOpenGPS
 
             metersXTE = Math.Abs(XTE * 0.001);
             stringXTE = metersXTE.ToString("0,001");
-            int xtuit = int.Parse(stringXTE);
-           string XTout = xtuit.ToString("0,000");
+        
             nmeaXTE += stringXTE;
             nmeaXTE += ",";
 
