@@ -6,6 +6,8 @@ using System.IO.Ports;
 using System.Threading;
 using System.ComponentModel;
 using System.Drawing;
+using System.Text;
+
 
 namespace AgOpenGPS
 {
@@ -20,10 +22,19 @@ namespace AgOpenGPS
         public Label GetLabel;
         //chart data
         private string dataSteerAngle = "0";
-
+        private string sumStr = "";
         public string dataPWM = "0";
         public string XTEOUTT = "";
         private bool isAuto = true;
+        public string data = "";
+
+        //xte
+        public string nmeaXTE;
+        public double XTE; // Assuming XTE is defined somewhere in the class
+        public double metersXTE;
+        public string stringXTE;
+       
+
 
         public FormXTEGraph(Form callingForm)
         {
@@ -48,10 +59,11 @@ namespace AgOpenGPS
                 //dataSteerAngle = mf.mc.actualSteerAngleChart.ToString(CultureInfo.InvariantCulture);
 
                 dataPWM = ((int)(mf.vehicle.modeActualXTE * 1000)).ToString(CultureInfo.InvariantCulture);
-
+               data = dataPWM.Replace(",", ".");
                 dataSteerAngle = (Math.Round(mf.vehicle.modeActualHeadingError, 1)).ToString(CultureInfo.InvariantCulture);
 
                 lblSteerAng.Text = dataSteerAngle + "\u00B0";
+                
                 lblPWM.Text = dataPWM;
 
             }
@@ -229,41 +241,61 @@ namespace AgOpenGPS
             }
         }
 
-    
-           
-           
+
+
+
+
+
+
         
 
-     
+            //public void CalculateChecksum1(ref string nmeaXTE)
+            //{
+            //    byte sum = 0;
+            //    char tmp;
 
+            //    // The checksum calc starts after '$' and ends before '*'
+            //    for (int inx = 1; inx < nmeaXTE.Length; inx++)
+            //    {
+            //        tmp = nmeaXTE[inx];
+
+            //        // * Indicates end of data and start of checksum
+            //        if (tmp == '*')
+            //        {
+            //            break;
+            //        }
+
+            //        // Calculate the XOR of ASCII byte values
+            //        sum ^= (byte)tmp;
+            //    }
+
+            //    // Convert chk to its ASCII hexadecimal representation
+            //    char hexHigh = asciiHex[(sum >> 4) & 0x0F]; // Get the higher 4 bits
+            //    char hexLow = asciiHex[sum & 0x0F]; // Get the lower 4 bits
+
+            //    // Append the checksum to the nmeaXTE string
+            //    nmeaXTE += "*"; // Add the asterisk delimiter
+            //    nmeaXTE += hexHigh;
+            //    nmeaXTE += hexLow;
+            //}
 
         public void BuildXTE()
         {
-
-            string XTEin = dataPWM;
-            int XTEOUT1 = int.Parse(XTEin );
-           
-            string stringXTE1 = Math.Abs(XTEOUT1 * 0.001).ToString("0.000");
-
-            label3.Text = stringXTE1;
-            string nmeaXTE = "";
+            XTE = ((int)(mf.vehicle.modeActualXTE * 1000));
+            nmeaXTE = "";
 
             nmeaXTE += "$GPXTE,";
 
             nmeaXTE += "A,A,";
 
-            //double metersXTE = Math.Abs(dataPWM).ToString(CultureInfo.InvariantCulture);
-            string stringXTE = label3.Text;
-            nmeaXTE += stringXTE + ",";
+            metersXTE = Math.Abs(XTE * 0.001);
+            stringXTE = metersXTE.ToString("0,001");
+            int xtuit = int.Parse(stringXTE);
+           string XTout = xtuit.ToString("0,000");
+            nmeaXTE += stringXTE;
+            nmeaXTE += ",";
 
-            string numberString = dataPWM;
-            int number = int.Parse(numberString);
-
-            
-            
-
-
-            if (number < 0)
+            if (XTE < 0)
             {
                 nmeaXTE += "R,";
             }
@@ -276,13 +308,63 @@ namespace AgOpenGPS
 
             CalculateChecksum1(ref nmeaXTE);
 
-            nmeaXTE += "\r\n";
-
-            // Assuming you are sending the NMEA message via a serial port named "Serial5"
-            //SerialPort1.Write(nmeaXTE);
-            //Serial5.WriteLine(nmeaXTE);
+           
             XTEOUTT = nmeaXTE;
+            // Assuming you are writing the nmeaXTE string to a serial port or console
+            // Console.Write(nmeaXTE); // Uncomment this line when using the console
+            // SerialPort.Write(nmeaXTE); // Uncomment this line when using the Serial port
         }
+
+
+        //public void BuildXTE()
+        //{
+
+        //    string XTEin = data;
+        //    int XTEOUT1 = int.Parse(XTEin);
+
+        //    string stringXTE1 = XTEOUT1.ToString("0,000");
+
+        //    label3.Text = stringXTE1;
+        //    string nmeaXTE = "";
+
+        //    nmeaXTE += "$GPXTE,";
+
+        //    nmeaXTE += "A,A,";
+
+        //    //double metersXTE = Math.Abs(dataPWM).ToString(CultureInfo.InvariantCulture);
+        //    string stringXTE = label3.Text;
+        //    nmeaXTE += stringXTE + ",";
+
+        //    string numberString = dataPWM;
+        //    int number = int.Parse(numberString);
+
+
+
+
+
+        //    if (number < 0)
+        //    {
+        //        nmeaXTE += "R,";
+        //    }
+        //    else
+        //    {
+        //        nmeaXTE += "L,";
+        //    }
+
+        //    nmeaXTE += "N*";
+
+        //    CalculateChecksum1(ref nmeaXTE);
+
+        //    nmeaXTE += "\r\n";
+
+        //    // Assuming you are sending the NMEA message via a serial port named "Serial5"
+        //    //SerialPort1.Write(nmeaXTE);
+        //    //Serial5.WriteLine(nmeaXTE);
+
+        //    XTEOUTT = nmeaXTE;
+        //}
+
+
 
         public void CalculateChecksum1(ref string nmeaXTE)
         {
@@ -300,7 +382,7 @@ namespace AgOpenGPS
                     break;
                 }
 
-                sum ^= Convert.ToInt32(tmp); // Build checksum using XOR operation
+                sum ^= Convert.ToInt16(tmp); // Build checksum using XOR operation
             }
 
             int chk = sum >> 4;
@@ -310,9 +392,12 @@ namespace AgOpenGPS
             chk = sum % 16;
             hex = asciiHex[chk];
             nmeaXTE += hex;
+
+
         }
 
-      
+
+
 
         private void button2_Click(object sender, EventArgs e)
         {

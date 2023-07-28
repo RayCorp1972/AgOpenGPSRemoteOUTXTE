@@ -42,7 +42,7 @@ namespace AgOpenGPS
         //the trackbar angle for free drive
         public double driveFreeSteerAngle = 0;
 
-        public double modeXTE, modeActualXTE = 0, modeActualHeadingError = 0;
+        public double modeXTE, modeActualXTE = 0.000, modeActualHeadingError = 0;
         public int modeTime = 0;
 
         public double functionSpeedLimit;
